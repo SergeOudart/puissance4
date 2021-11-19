@@ -1,0 +1,23 @@
+#plateau {
+    width: 550px;
+    height: 500px;
+}
+
+td {
+    border-radius: 2cm;
+    width: 2cm;
+    height: 2cm;
+    background-color: white;
+}
+
+#tableJeu {
+    border: 2px solid black;
+    height: 100%;
+    width: 100%;
+    background-color: blue;
+    margin: auto;
+}
+
+td > p {
+    color: white;
+}
