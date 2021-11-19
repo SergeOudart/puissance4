@@ -13,11 +13,4 @@ class noeudArbre {
     returnFilsChoisit(c) {
         return this.enfants[c];
     }
-
-    getFils() {
-        childs = [];
-        this.enfants.forEach(element => {
-            
-        });
-    }
 }

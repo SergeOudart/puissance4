@@ -5,8 +5,10 @@ class ia {
         this.heuristique = heuristique;
     }
 
-    creerArbre(tableauJeu, iaTurn) {
-        
+    creerArbre(tableauJeu, iaTurn, difficulte) {
+        for(var i = 0; i<difficulte; i++) {
+            
+        }
     }
 
     min() {
