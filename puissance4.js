@@ -131,8 +131,10 @@ function fillRender(ligneAdd, column) {
 
 function iaPlay(iaTurn) { //sélection aléatoire pour l'instant 
 
+    ia = new ia(difficulte);
+
     
-    
+
 
     if (tableauJeu[i][y] != 0) {
         iaPlay(iaTurn);

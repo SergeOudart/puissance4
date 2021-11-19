@@ -5,7 +5,7 @@ class ia {
         this.heuristique = heuristique;
     }
 
-    creerArbre() {
+    creerArbre(tableauJeu, iaTurn) {
         
     }
 
