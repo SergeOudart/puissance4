@@ -86,6 +86,12 @@ function fillTab(column, ligne, iaTurn) {
             }
         }
         console.log(tableauJeu);
+    }else{
+        while(tableauJeu[ligne][column] != 0){
+            
+            ligne --;
+            ligneAdd = ligne;
+        }
     }
     tableauJeu[ligneAdd][column] = joueur;  //Rempli le board avec les valeurs des joueurs
     fillRender(ligneAdd, column);   //Rempli la grille HTML avec le bon jeton aux bonnes coordonnées
@@ -127,11 +133,51 @@ function fillRender(ligneAdd, column) {
     }
 }
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 //la constante difficulté sert à définir combien de coups l'IA doit voir à l'avance
 
 function iaPlay(iaTurn) { //sélection aléatoire pour l'instant 
+  
+   var ia = new iaTest(difficulte);
 
-    ia = new ia(difficulte);
+  //  var col = getRandomInt(0,6);
+   // var ligne = getRandomInt(0,5);
+
+    var recupe = ia.checkVictoire(tableauJeu);
+    var recupe2 = ia.heuristiqueFacile(tableauJeu);
+
+    if(recupe != 0){
+        console.log(recupe);
+        return recupe;
+    }
+    else{
+        return recupe2;
+    }
+
+    /*if((recupe == 0) && (tableauJeu[ligne][col] !=0)){
+        recupe2[0] = getRandomInt(0,6);
+        recupe2[1] = getRandomInt(0,5);
+        console.log(recupe2);
+        return recupe2;
+    }
+    else if (tableauJeu[ligne][col] == 0){
+        recupe2[0] = getRandomInt(0,6);
+        recupe2[1] = getRandomInt(0,5);
+        console.log(recupe2);
+        return recupe2;
+    }
+
+   
+  
+
+
+
+
 
     
 
@@ -145,7 +191,7 @@ function iaPlay(iaTurn) { //sélection aléatoire pour l'instant
 
     return coordIa;
 
-    
+  */  
 }
 
 function isWon(iaTurn, ligne, column) {
