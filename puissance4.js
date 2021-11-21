@@ -141,7 +141,7 @@ function getRandomInt(min, max) {
 
 //la constante difficulté sert à définir combien de coups l'IA doit voir à l'avance
 
-function iaPlay(iaTurn) { //sélection aléatoire pour l'instant 
+function iaPlay(iaTurn) {  
   
    var ia = new iaTest(difficulte);
 
@@ -171,16 +171,6 @@ function iaPlay(iaTurn) { //sélection aléatoire pour l'instant
         console.log(recupe2);
         return recupe2;
     }
-
-   
-  
-
-
-
-
-
-    
-
 
     if (tableauJeu[i][y] != 0) {
         iaPlay(iaTurn);
