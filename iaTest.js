@@ -29,13 +29,7 @@ class iaTest {
         return newTab;
     }
 
-    heuristiqueFacile(tableauJeu){
-
-        var max = 0;
-        var copieTab = tableauEvaluation;
-
-        var arrReturn = new Array(2);
-
+    initTableauEval(tableauJeu) {
         for(i = 0; i <= 5 ; i++ ){
             for(j = 0; j <= 6; j++ ){
                 if(tableauJeu[i][j] != 0){
@@ -44,6 +38,16 @@ class iaTest {
                 
             }
         }
+    }
+
+    heuristiqueFacile(tableauJeu){
+
+        var max = 0;
+        var copieTab = tableauEvaluation;
+
+        var arrReturn = new Array(2);
+
+        this.initTableauEval(tableauJeu);
 
         for(i = 0; i <= 5 ; i++ ){
             for(j = 0; j <= 6; j++ ){
@@ -61,22 +65,48 @@ class iaTest {
         return arrReturn;
     }
 
-    heuristique(tableauJeu){
+    heuristiqueMoyen(tableauJeu, iaTurn){
 
+        var nbCoups = 0; 
         var col;
-        var tab = new Array(6);
+        var copieTab = tableauJeu;
+        var comp;
+        var evaluation = 0;
+        var histoCoups = array(6);
+        var timer = 0;
 
-        for(i = 0; i < 6 ; i++){
-            for (j = 0; j < 5 ; j++){
-                if (tableauJeu[i][j] == 0){
+        this.initTableauEval(tableauJeu);
 
-
+        while(nbCoups != 3) {
+            for(i = 0; i <= 5 ; i++ ){
+                for(j = 0; j <= 6; j++ ){
+                    if((tableauEvaluation[i][j] > max) && (tableauEvaluation[i+1][j]) == 0) {
+                        max = tableauEvaluation[i][j];
+                        arrReturn[0] = i;
+                        arrReturn[1] = j;
+                    }
                 }
             }
+            if (iaTurn) {
+                comp = 1;
+            } else {
+                comp = 2;
+            }
+            copieTab[arrReturn[0]][arrReturn[1]] = comp;
+
+            if (iaTurn) {
+                evaluation = evaluation + tableauEvaluation[arrReturn[0]][arrReturn[1]];
+            } else {
+                evaluation = evaluation - tableauEvaluation[arrReturn[0]][arrReturn[1]];
+            }
+            histoCoups[timer] = comp;
+            histoCoups[timer+1] = arrReturn;
+
+            iaTurn = !iaTurn;
+            
+            nbCoups++;
         }
-
-
-        return col;
+        return evaluation;
     }
 
 

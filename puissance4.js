@@ -151,6 +151,12 @@ function iaPlay(iaTurn) {
     var recupe = ia.checkVictoire(tableauJeu);
     var recupe2 = ia.heuristiqueFacile(tableauJeu);
 
+    if (ia.difficulte == 2) {
+        var recupe3 = ia.heuristiqueMoyen(tableauJeu);
+
+        
+    }
+
     if(recupe != 0){
         console.log(recupe);
         return recupe;
