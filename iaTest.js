@@ -147,10 +147,10 @@ class iaTest {
         this.evaluation = this.evaluation + copieTabEval[coordonnes[0]][coordonnes[1]];
         copieTabEval[coordonnes[0]][coordonnes[1]] = 0;
 
-        //while(i != profondeur) {
+        while(i != profondeur) {
             this.evaluation = this.evaluation + this.central();
             i++;
-        //}
+        }
 
     }
 
@@ -196,12 +196,18 @@ class iaTest {
             }
         }
 
-        console.log(copieTabJeu);
         
-        copieTabJeu[coordMin[0]][coordMin[1]] = comp;
+        
+        try {
+            copieTabJeu[coordMin[0]][coordMin[1]] = comp;
+            copieTabEval[coordMin[0]][coordMin[1]] = 0;
+        } catch(e) {
+            max = 200;
+        }
+        
 
         
-        copieTabEval[coordMin[0]][coordMin[1]] = 0;
+        
 
         if (comp == 1) {
             return max;
@@ -303,7 +309,20 @@ class iaTest {
     checkVictoire(grille){
         var arr = new Array(2);
 
-        //Balayage horizontal 
+        //Balayage horizontal
+        /*for (var ligne = 5; ligne >= 0; ligne--){
+            for (var colonne = 0; colonne <= 6; colonne++) {
+                if (grille[ligne][colonne] !== 0
+                    && grille[ligne][colonne] === grille[ligne][colonne + 1]
+                    && grille[ligne][colonne + 1] == 0
+                    && colonne == 3) {
+                        arr[0] = ligne;
+                        arr[1] = colonne - 1;
+                        return arr;
+                    }
+            }
+        }*/
+
         for (var ligne = 5; ligne >= 0; ligne--){
             for (var colonne = 0; colonne <= 3; colonne++) {
                 if (grille[ligne][colonne] !== 0
