@@ -48,7 +48,7 @@ function afficherTable() {
     for (let i = 0; i<6;i++) {
         tableauJeu[i] = Array(7).fill(0);
     }
-    console.log(tableauJeu);
+    //console.log(tableauJeu);
 }
 
 function fillTab(column, ligne, iaTurn) {
@@ -85,7 +85,7 @@ function fillTab(column, ligne, iaTurn) {
                 }
             }
         }
-        console.log(tableauJeu);
+        //console.log(tableauJeu);
     }else{
         while(tableauJeu[ligne][column] != 0){
             
@@ -93,6 +93,7 @@ function fillTab(column, ligne, iaTurn) {
             ligneAdd = ligne;
         }
     }
+    console.log(tableauJeu);
     tableauJeu[ligneAdd][column] = joueur;  //Rempli le board avec les valeurs des joueurs
     fillRender(ligneAdd, column);   //Rempli la grille HTML avec le bon jeton aux bonnes coordonnées
 }
@@ -133,28 +134,23 @@ function fillRender(ligneAdd, column) {
     }
 }
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 //la constante difficulté sert à définir combien de coups l'IA doit voir à l'avance
 
 function iaPlay(iaTurn) {  
-  
-   var ia = new iaTest(difficulte);
+    
+    var ia = new iaTest(difficulte, 200);
 
-  //  var col = getRandomInt(0,6);
-   // var ligne = getRandomInt(0,5);
-
+    var recupe2;
     var recupe = ia.checkVictoire(tableauJeu);
-    var recupe2 = ia.heuristiqueFacile(tableauJeu);
+
+    if (ia.difficulte == 1) {
+        var recupe2 = ia.heuristiqueFacile(tableauJeu);
+    }
 
     if (ia.difficulte == 2) {
-        var recupe3 = ia.heuristiqueMoyen(tableauJeu);
+        var recupe2 = ia.heuristiqueMoyen(tableauJeu, iaTurn);
+        console.log(recupe2);
 
-        
     }
 
     if(recupe != 0){
@@ -164,30 +160,6 @@ function iaPlay(iaTurn) {
     else{
         return recupe2;
     }
-
-    /*if((recupe == 0) && (tableauJeu[ligne][col] !=0)){
-        recupe2[0] = getRandomInt(0,6);
-        recupe2[1] = getRandomInt(0,5);
-        console.log(recupe2);
-        return recupe2;
-    }
-    else if (tableauJeu[ligne][col] == 0){
-        recupe2[0] = getRandomInt(0,6);
-        recupe2[1] = getRandomInt(0,5);
-        console.log(recupe2);
-        return recupe2;
-    }
-
-    if (tableauJeu[i][y] != 0) {
-        iaPlay(iaTurn);
-    }
-    var coordIa = Array(2);
-    coordIa[0] = i;
-    coordIa[1] = y;
-
-    return coordIa;
-
-  */  
 }
 
 function isWon(iaTurn, ligne, column) {
