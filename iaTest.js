@@ -6,6 +6,8 @@ var tableauEvaluation =
     [4, 6, 8, 10, 8, 6, 4],
     [3, 4, 5, 7, 5, 4, 3],
     [0, 0, 0, 0, 0, 0, 0]];
+var copieTabJeu = Array(6);
+var copieTabEval = Array(7);
 var nowComp;
 var comp;
 
@@ -66,8 +68,153 @@ class iaTest {
         return arrReturn;
     }
 
-    heuristiqueMoyen(tableauJeu, iaTurn) {
+    heuristiqueMoyen(tableauJeu, iaTurn){
+
+        var profondeur = 2;
+
+        var evaluation = 200;
+
+        this.initTableauEval(tableauJeu);
+
+        var evaluationVal = Array();
+        var coord = Array();
+        if (iaTurn) {
+            comp = 1;
+        } else {
+            comp = 2;
+        }
+        var compt = 0;
+        for(i = 0; i<=5; i++) {
+            for(j=0;j<=6;j++) {
+                if ((tableauEvaluation[i+1][j] == 0) && (tableauEvaluation[i][j] != 0)) {
+                    evaluationVal[compt] = tableauEvaluation[i][j];
+                    
+                    coord[compt] = [i,j];
+
+                    compt++;
+                }
+            }
+        }
+        var tabEvaluationCourante = Array();
+
+        for(i = 0; i < coord.length;i++) {
+
+            for (let x = 0; x<6;x++) {
+                copieTabJeu[x] = Array(7).fill(0);
+            }
+
+            for(let x = 0; x<=5;x++) {
+                for(j=0;j<=6;j++) {
+                    var test = tableauJeu[x][j];
+                    copieTabJeu[x][j] = test;
+                }
+            }
+
+            for (let x = 0; x<=6;x++) {
+                copieTabEval[x] = Array(7).fill(0);
+            }
+
+            for(let x = 0; x<=6;x++) {
+                for(j=0;j<=6;j++) {
+                    var test = tableauEvaluation[x][j];
+                    copieTabEval[x][j] = test;
+                }
+            }
+
+            
+            this.evaluation = 200;
+            this.debut(coord[i], evaluation, profondeur);
+            tabEvaluationCourante[i] = this.evaluation;
+            
+        }
+
+        var max = tabEvaluationCourante[0];
+        var coordJouer = [];
+        for(i = 0; i < tabEvaluationCourante.length; i++) {
+            if(max < tabEvaluationCourante[i]) {
+                max = tabEvaluationCourante[i];
+                coordJouer = coord[i];
+            }
+        }
+
+        return coordJouer;
+        
+    }
+
+    debut(coordonnes, evaluation, profondeur) {
+        var i = 1;
+        copieTabJeu[coordonnes[0]][coordonnes[1]] = comp;
+        this.evaluation = this.evaluation + copieTabEval[coordonnes[0]][coordonnes[1]];
+        copieTabEval[coordonnes[0]][coordonnes[1]] = 0;
+
+        //while(i != profondeur) {
+            this.evaluation = this.evaluation + this.central();
+            i++;
+        //}
+
+    }
+
+    central() {
+        if (comp == 1) { //Un coup de l'ia vient d'être joué, c'est donc au joueur de jouer
+            comp = comp + 1;
+            var res = this.minimax();
+            return res;
+        } else {    //Un coup du joueur vient d'être joué, c'est donc à l'IA
+            comp = comp - 1;
+            var res = this.minimax();
+            
+            return res;
+        }
+    }
+
+    minimax() {
+        
+        var evaluationVal = Array();
+        var coord = Array();
+        var coordMin = Array();
+        var max;
+
+        var compt = 0;
+        for(i = 0; i<=5; i++) {
+            for(j=0;j<=6;j++) {
+                if ((copieTabEval[i+1][j] == 0) && (copieTabEval[i][j] != 0)) {
+                    evaluationVal[compt] = copieTabEval[i][j];
+                    
+                    coord[compt] = [i,j];
+
+                    compt++;
+                }
+            }
+        }
+
+        //CHerche le minimum des coups possible
+        max = evaluationVal[0];
+        for(var i = 0; i < evaluationVal.length; i++) {
+            if(max < evaluationVal[i]) {
+                max = evaluationVal[i];
+                coordMin = coord[i];
+            }
+        }
+
+        console.log(copieTabJeu);
+        
+        copieTabJeu[coordMin[0]][coordMin[1]] = comp;
+
+        
+        copieTabEval[coordMin[0]][coordMin[1]] = 0;
+
+        if (comp == 1) {
+            return max;
+        } else {
+            return (0-max);
+        }
+
+    }
+
+    /*heuristiqueMoyen(tableauJeu, iaTurn) {
         var jeton = 0;
+
+        this.initTableauEval(tableauJeu);
 
         if(iaTurn) {
             jeton = 1;
@@ -75,18 +222,15 @@ class iaTest {
             jeton = 2;
         }
 
-        var copieTabJeu = Array(6);
-        var copieTabEvaluation = Array(7);
 
         for (let x = 0; x<6;x++) {
             copieTabJeu[x] = Array(7).fill(0);
         }
 
         for (let x = 0; x<=6;x++) {
-            copieTabEvaluation[x] = Array(7).fill(0);
+            copieTabEval[x] = Array(7).fill(0);
         }
 
-        this.initTableauEval(tableauJeu);
 
         var evaluationAtteignable = Array();
         var coordAtteignable = Array();
@@ -106,34 +250,42 @@ class iaTest {
         
         for(let i = 0; i < coordAtteignable.length;i++) {
 
-            for(let x = 0; x<=5;x++) {
-                for(let j = 0; j<=6;j++) {
-                    var stock = tableauJeu[x][j];
-                    copieTabJeu[x][j] = stock;
-                }
+            for (let x = 0; x<6;x++) {
+                copieTabJeu[x] = Array(7).fill(0);
             }
 
             for(let x = 0; x<=5;x++) {
-                for(let j = 0; j<=6;j++) {
-                    var stock = tableauEvaluation[x][j];
-                    copieTabEvaluation[x][j] = stock;
+                for(let j=0;j<=6;j++) {
+                    var test = tableauJeu[x][j];
+                    copieTabJeu[x][j] = test;
+                }
+            }
+
+            for (let x = 0; x<=6;x++) {
+                copieTabEval[x] = Array(7).fill(0);
+            }
+
+            for(let x = 0; x<=6;x++) {
+                for(let j=0;j<=6;j++) {
+                    var test = tableauEvaluation[x][j];
+                    copieTabEval[x][j] = test;
                 }
             }
 
             this.evaluation = 200;
-            this.premierCoup(coordAtteignable[i],jeton, copieTabJeu, copieTabEvaluation);
+            this.premierCoup(coordAtteignable[i],jeton, copieTabJeu, copieTabEval);
             
         }
     }
 
-    premierCoup(coordAtteignable,jeton,copieTabJeu,copieTabEvaluation) {
-        copieTabJeu[4][0] = jeton;
-        this.evaluation = this.evaluation + copieTabEvaluation[coordAtteignable[0]][coordAtteignable[1]];
-        copieTabEvaluation[coordAtteignable[0]][coordAtteignable[1]] = 0;
+    premierCoup(coordAtteignable,jeton,copieTabJeu,copieTabEval) {
+        copieTabJeu[coordAtteignable[0]][coordAtteignable[1]] = jeton;
+        this.evaluation = this.evaluation + copieTabEval[coordAtteignable[0]][coordAtteignable[1]];
+        copieTabEval[coordAtteignable[0]][coordAtteignable[1]] = 0;
 
         console.log(copieTabJeu);
-        console.log(copieTabEvaluation);
-    }
+        console.log(copieTabEval);
+    }*/
 
     
     // Verification match nul 
