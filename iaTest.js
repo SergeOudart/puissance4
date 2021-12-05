@@ -70,7 +70,14 @@ class iaTest {
 
     heuristiqueMoyen(tableauJeu, iaTurn){
 
-        var profondeur = 2;
+        var profondeur;
+
+        if (this.difficulte == 2) {
+            profondeur = 2;
+        } else if (this.difficulte == 3) {
+            profondeur = 4;
+        }
+        
 
         var evaluation = 200;
 

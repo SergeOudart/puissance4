@@ -140,25 +140,37 @@ function iaPlay(iaTurn) {
     
     var ia = new iaTest(difficulte, 200);
 
+    var recupe;
+    var recupe1;
     var recupe2;
-    var recupe = ia.checkVictoire(tableauJeu);
+    var recupe3;
+
+    recupe = ia.checkVictoire(tableauJeu);
 
     if (ia.difficulte == 1) {
-        var recupe2 = ia.heuristiqueFacile(tableauJeu);
+        recupe1 = ia.heuristiqueFacile(tableauJeu);
     }
 
     if (ia.difficulte == 2) {
-        var recupe2 = ia.heuristiqueMoyen(tableauJeu, iaTurn);
+        recupe2 = ia.heuristiqueMoyen(tableauJeu, iaTurn);
         console.log(recupe2);
-
     }
 
-    if(recupe != 0){
-        console.log(recupe);
+    if (ia.difficulte == 3) {
+        recupe3 = ia.heuristiqueMoyen(tableauJeu, iaTurn);
+        console.log(recupe3);
+    }
+
+    if (recupe != 0){
         return recupe;
     }
-    else{
+
+    if (ia.difficulte == 1) {
+        return recupe1;
+    } else if (ia.difficulte == 2) {
         return recupe2;
+    } else if (ia.difficulte == 3) {
+        return recupe3;
     }
 }
 
