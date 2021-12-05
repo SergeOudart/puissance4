@@ -93,7 +93,7 @@ function fillTab(column, ligne, iaTurn) {
             ligneAdd = ligne;
         }
     }
-    console.log(tableauJeu);
+    //console.log(tableauJeu);
     tableauJeu[ligneAdd][column] = joueur;  //Rempli le board avec les valeurs des joueurs
     fillRender(ligneAdd, column);   //Rempli la grille HTML avec le bon jeton aux bonnes coordonnées
 }
