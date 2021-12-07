@@ -224,82 +224,6 @@ class iaTest {
 
     }
 
-    /*heuristiqueMoyen(tableauJeu, iaTurn) {
-        var jeton = 0;
-
-        this.initTableauEval(tableauJeu);
-
-        if(iaTurn) {
-            jeton = 1;
-        } else {
-            jeton = 2;
-        }
-
-
-        for (let x = 0; x<6;x++) {
-            copieTabJeu[x] = Array(7).fill(0);
-        }
-
-        for (let x = 0; x<=6;x++) {
-            copieTabEval[x] = Array(7).fill(0);
-        }
-
-
-        var evaluationAtteignable = Array();
-        var coordAtteignable = Array();
-        var compteur = 0;
-
-        for(let i =0; i<=5;i++) {
-            for(let j = 0; j<=6;j++) {
-                if((tableauEvaluation[i+1][j] == 0) && (tableauEvaluation[i][j] != 0)) {
-                    evaluationAtteignable[compteur] = tableauEvaluation[i][j];
-
-                    coordAtteignable[compteur] = [i,j];
-
-                    compteur++;
-                }
-            }
-        }
-        
-        for(let i = 0; i < coordAtteignable.length;i++) {
-
-            for (let x = 0; x<6;x++) {
-                copieTabJeu[x] = Array(7).fill(0);
-            }
-
-            for(let x = 0; x<=5;x++) {
-                for(let j=0;j<=6;j++) {
-                    var test = tableauJeu[x][j];
-                    copieTabJeu[x][j] = test;
-                }
-            }
-
-            for (let x = 0; x<=6;x++) {
-                copieTabEval[x] = Array(7).fill(0);
-            }
-
-            for(let x = 0; x<=6;x++) {
-                for(let j=0;j<=6;j++) {
-                    var test = tableauEvaluation[x][j];
-                    copieTabEval[x][j] = test;
-                }
-            }
-
-            this.evaluation = 200;
-            this.premierCoup(coordAtteignable[i],jeton, copieTabJeu, copieTabEval);
-            
-        }
-    }
-
-    premierCoup(coordAtteignable,jeton,copieTabJeu,copieTabEval) {
-        copieTabJeu[coordAtteignable[0]][coordAtteignable[1]] = jeton;
-        this.evaluation = this.evaluation + copieTabEval[coordAtteignable[0]][coordAtteignable[1]];
-        copieTabEval[coordAtteignable[0]][coordAtteignable[1]] = 0;
-
-        console.log(copieTabJeu);
-        console.log(copieTabEval);
-    }*/
-
     
     // Verification match nul 
 
@@ -317,7 +241,7 @@ class iaTest {
         var arr = new Array(2);
 
         //Balayage horizontal
-        /*for (var ligne = 5; ligne >= 0; ligne--){
+        for (var ligne = 5; ligne >= 0; ligne--){
             for (var colonne = 0; colonne <= 6; colonne++) {
                 if (grille[ligne][colonne] !== 0
                     && grille[ligne][colonne] === grille[ligne][colonne + 1]
@@ -328,7 +252,7 @@ class iaTest {
                         return arr;
                     }
             }
-        }*/
+        }
 
         for (var ligne = 5; ligne >= 0; ligne--){
             for (var colonne = 0; colonne <= 3; colonne++) {
